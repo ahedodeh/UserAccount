@@ -25,7 +25,15 @@ class AccountController extends Controller
      */
     public function store(StoreAccountRequest $request)
     {
-        //
+        $account = Account::create($request->all());
+
+        $res = [
+            'message' => 'Account created successfully',
+            'status' => 200,
+            'data' => new AccountResource($account)
+        ];
+
+        return response()->json($res);
     }
 
     /**

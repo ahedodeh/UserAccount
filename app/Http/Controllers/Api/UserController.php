@@ -80,9 +80,18 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $account)
+    public function destroy(User $user)
     {
-        //
+        if ($user) {
+            $user->delete();
+            $res = [
+                'message'=> 'User Deleted successfully',
+                'status'=> 200,
+                'data'=> new UserResource($user)
+            ];
+            return $res;
+
+        }
     }
 }
 

@@ -68,6 +68,16 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+
+        if ($account) {
+            $account->delete();
+            $res = [
+                'message' => 'Account Deleted successfully',
+                'status' => 200,
+                'data' => new AccountResource($account)
+            ];
+            return $res;
+
+        }
     }
 }

@@ -23,12 +23,31 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // I don't know if any attribute depends on another attribute
+        $type = $this->faker->randomElement(['Tracking', 'personal', 'pitsonal']);
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'username'=> $this->faker->unique()->userName(),
+            'user_type'=> $type,
+            'last_login' => $this->faker->dateTimeThisYear(),
+            'allowable_users' => $this->faker->randomNumber(),
+            'locked_at' => $this->faker->optional()->dateTimeThisYear(),
+            'financial_number' => $this->faker->optional()->creditCardNumber(),
+            'background_color' => $this->faker->optional()->hexColor(),
+            'created_at' => $this->faker->optional()->dateTimeThisYear(),
+            'updated_at' => $this->faker->optional()->dateTimeThisYear(),
+            'last_login_at' => $this->faker->optional()->dateTimeThisYear(),
+            'deleted_at' => $this->faker->optional()->dateTimeThisYear(),
+            'jwt_ttl' => 480,
+            'imei' => $this->faker->unique()->optional()->randomNumber(),
+
+
+
+        
         ];
     }
 

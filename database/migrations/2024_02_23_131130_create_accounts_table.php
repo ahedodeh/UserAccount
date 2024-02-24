@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->integer('user_id');
             $table->string('company_name')->nullable();
             $table->string('address')->nullable();
             $table->string('region')->nullable();
             $table->string('phone')->nullable();
-            $table->string('mobile_perfix');
+            $table->string('mobile_prefix');
             $table->string('mobile');
             $table->enum('language',['arabic','english']);
             $table->enum('default_map',['pits-map','bing-default','google-default']);

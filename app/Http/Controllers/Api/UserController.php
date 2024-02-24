@@ -29,14 +29,13 @@ class UserController extends Controller
     {
         $this->validateUnique($request);
         $user = User::create($request->all());
-
         $res = [
             'message' => 'User created successfully',
             'status' => 200,
             'data' => new UserResource($user)
         ];
 
-        return response()->json($res);
+        return $res;
     }
 
     private function validateUnique(Request $request)
@@ -61,14 +60,21 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
- 
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $this->validateUnique($request);
+        $user->update($request->all());
+        $res = [
+            'message' => 'Updated user successfully',
+            'status' => 200,
+            'data'=> new UserResource($user)
+        ];
+        return $res;
+
     }
 
     /**

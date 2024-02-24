@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class UpdateUserRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,44 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method= $this->method();
+        if ($method == "PUT") {
+
+            return [
+                
+        'name'=>['required'],
+        'email'=>['required','email'],
+        'password'=>['required'],
+        'username'=>['required'],
+        'last_login'=>['nullable','date'],
+        'user_type'=>['required', Rule::in(['Tracking','personal','pitsonal'])],
+        'allowable_users'=>['required'],
+        'locked_at'=>['nullable','date'],
+        'financial_number'=>['required'],
+        'background_color'=>['required'],
+        'last_login_at'=>['nullable','date'],
+        'jwt_ttl' => ["nullable", 'integer'],
+        'imei' => ['nullable', 'string'],
+       
+        
+            ];
+        }else{
+            return [
+        'name'=>['sometimes','required'],
+        'email'=>['sometimes','required','email'],
+        'password'=>['sometimes','required'],
+        'username'=>['sometimes','required'],
+        'last_login'=>['sometimes','nullable','date'],
+        'user_type'=>['sometimes','required', Rule::in(['Tracking','personal','pitsonal'])],
+        'allowable_users'=>['sometimes','required'],
+        'locked_at'=>['sometimes','nullable','date'],
+        'financial_number'=>['sometimes','required'],
+        'background_color'=>['sometimes','required'],
+        'last_login_at'=>['sometimes','nullable','date'],
+        'jwt_ttl' => ['sometimes',"nullable", 'integer'],
+        'imei' => ['sometimes','nullable', 'string'],
+       
         ];
+        }
     }
 }

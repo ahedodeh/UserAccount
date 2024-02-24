@@ -33,7 +33,7 @@ class AccountController extends Controller
             'data' => new AccountResource($account)
         ];
 
-        return response()->json($res);
+        return $res;
     }
 
     /**
@@ -50,9 +50,18 @@ class AccountController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateAccountRequest $request, Account $account)
-    {
-        //
-    }
+{
+    $account->update($request->all());
+
+    $res = [
+        'message' => 'Updated account successfully',
+        'status' => 200,
+        'data'=> new AccountResource($account)
+    ];
+
+    return $res;
+}
+
 
     /**
      * Remove the specified resource from storage.

@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
             ->hasAccounts(3)
             ->create(); 
         User::factory()
-            ->count(5)
-            ->hasAccounts(1)
+            ->count(10)
+            ->hasAccounts(2)
             ->create();        
         
        

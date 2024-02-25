@@ -8,6 +8,7 @@ use App\Http\Resources\AccountResource;
 use App\Models\Account;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Requests\BulkStoreAccountRequest;
 
 class AccountController extends Controller
 {
@@ -34,6 +35,17 @@ class AccountController extends Controller
         ];
 
         return $res;
+    }
+
+    public function bulkStore(BulkStoreAccountRequest $request){
+        $account = collect($request->all());
+        Account::insert($account->toArray());
+        $res = [
+            'message' => 'Bulk process inserted successfully',
+            'status' => 200,
+        ];
+        return $res;
+    
     }
 
     /**

@@ -9,15 +9,24 @@ use App\Models\Account;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Requests\BulkStoreAccountRequest;
+use Illuminate\Http\Request;
+use App\Services\AccountQuery;
 
 class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new AccountCollection(Account::paginate(2));
+        $filter = new AccountQuery();
+        $queryItems = $filter->transform($request); //[['column','operation','value']
+
+        if ($queryItems === null) {
+            return new AccountCollection(Account::paginate(2));
+        }else{
+            return AccountResource::collection(Account::where($queryItems)->get());
+        }
     }
 
   

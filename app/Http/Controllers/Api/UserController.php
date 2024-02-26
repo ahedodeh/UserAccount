@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
+use App\Services\UserQuery;
 
 
 
@@ -16,9 +17,15 @@ class UserController extends Controller
 {
     
     
-    public function index()
+    public function index(Request $request)
     {
-        return new UserCollection(User::paginate(3));
+    //     $filter = new UserQuery();
+    //   $queryUser = $filter ->transform($request->all());
+    //     if ($queryUser === null) {
+    //         return new UserCollection(User::paginate(3));
+    //     }else{
+    //         return UserResource::collection(User::where($queryUser)->get());
+    //     }
     }
 
 

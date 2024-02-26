@@ -16,16 +16,16 @@ use App\Services\UserQuery;
 class UserController extends Controller
 {
     
-    
     public function index(Request $request)
     {
-    //     $filter = new UserQuery();
-    //   $queryUser = $filter ->transform($request->all());
-    //     if ($queryUser === null) {
-    //         return new UserCollection(User::paginate(3));
-    //     }else{
-    //         return UserResource::collection(User::where($queryUser)->get());
-    //     }
+        $filter = new UserQuery();
+        $queryItems = $filter ->transform($request);
+
+        if ($queryItems === null) {
+            return new UserCollection(User::paginate(2));
+        }else{
+            return UserResource::collection(User::where($queryItems)->get());
+        }
     }
 
 

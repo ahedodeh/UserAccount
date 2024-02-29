@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->enum('language',['arabic','english']);
             $table->enum('default_map',['pits-map','bing-default','google-default']);
+            //file
             $table->string('time_zone');
             $table->string('landing_page');
             $table->timestamps();

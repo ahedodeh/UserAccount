@@ -11,13 +11,13 @@ use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Requests\BulkStoreAccountRequest;
 use Illuminate\Http\Request;
 use App\Services\AccountQuery;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+  public function index(Request $request)
     {
         $filter = new AccountQuery();
         $queryItems = $filter->transform($request); //[['column','operation','value']
@@ -29,7 +29,7 @@ class AccountController extends Controller
         }
     }
 
-  
+
     /**
      * Store a newly created resource in storage.
      */
@@ -46,7 +46,8 @@ class AccountController extends Controller
         return $res;
     }
 
-    public function bulkStore(BulkStoreAccountRequest $request){
+    public function bulkStore(BulkStoreAccountRequest $request)
+    {
         $account = collect($request->all());
         Account::insert($account->toArray());
         $res = [
@@ -54,15 +55,29 @@ class AccountController extends Controller
             'status' => 200,
         ];
         return $res;
-    
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Account $account)
+    public function show($account_id)
     {
-        return new AccountResource($account);
+        try {
+            $account = Account::findOrFail($account_id);
+            $res = [
+            'status' => 200,
+            'data' => new AccountResource($account)
+            ];
+            return $res;
+        } catch (ModelNotFoundException $e) {
+            $res = [
+                'message' => 'Account not found',
+                'status' => 404,
+            ];
+
+            return $res;
+        }
 
     }
 
@@ -70,35 +85,56 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRequest $request, Account $account)
-{
-    $account->update($request->all());
+    public function update(UpdateAccountRequest $request,$account_id)
+    {
+        try {
+            $account = Account::findOrFail($account_id);
+            $account->update($request->all());
 
-    $res = [
-        'message' => 'Updated account successfully',
-        'status' => 200,
-        'data'=> new AccountResource($account)
-    ];
+            $res = [
+                'message' => 'Updated account successfully',
+                'status' => 200,
+                'data' => new AccountResource($account)
+            ];
 
-    return $res;
-}
+            return $res;
+        } catch (ModelNotFoundException $e) {
+            $res = [
+                'message' => 'Account not found',
+                'status' => 404,
+            ];
+
+            return $res;
+        }
+    }
 
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Account $account)
+    public function destroy($account_id)
     {
+        try {
+            $account = Account::findOrFail($account_id);
 
-        if ($account) {
-            $account->delete();
+            Account::destroy($account_id);
+
             $res = [
                 'message' => 'Account Deleted successfully',
                 'status' => 200,
-                'data' => new AccountResource($account)
+                'data' =>  AccountResource::make($account),
             ];
-            return $res;
 
+            return $res;
+        } catch (ModelNotFoundException $e) {
+            $res = [
+                'message' => 'Account not found',
+                'status' => 404,
+            ];
+
+            return $res;
         }
     }
+
+
 }

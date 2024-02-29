@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use App\Services\UserQuery;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 
 
@@ -56,48 +58,80 @@ class UserController extends Controller
             'email.unique' => 'The email has already been taken.',
             'imei.unique' => 'The IMEI has already been taken.',
         ]);
+      
     }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($user_id)
     {
-        return new UserResource($user);
+        try {
+            $user = User::findOrFail($user_id);
+            $res = [
+            'status' => 200,
+            'data' => new UserResource($user)
+            ];
+            return $res;
+        } catch (ModelNotFoundException $e) {
+              $res = [
+                'message' => 'User not found',
+                'status' => 404,
+            ];
+
+            return $res;
+        }
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request,$user_id)
     {
-        $this->validateUnique($request);
-        $user->update($request->all());
-        $res = [
-            'message' => 'Updated user successfully',
-            'status' => 200,
-            'data'=> new UserResource($user)
-        ];
-        return $res;
+        try {
+            $user = User::findOrFail($user_id);
+            $this->validateUnique($request);
+            $user->update($request->all());
+            $res = [
+                'message' => 'Updated user successfully',
+                'status' => 200,
+                'data' => new UserResource($user)
+            ];
+            return $res;
+        } catch (ModelNotFoundException $e) {
+             $res = [
+                'message' => 'User not found',
+                'status' => 404,
+            ];
+            return $res; 
+
+        }
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        if ($user) {
+        try {
+            $user = User::findOrFail($user_id);
             $user->delete();
             $res = [
-                'message'=> 'User Deleted successfully',
-                'status'=> 200,
-                'data'=> new UserResource($user)
+                'message' => 'User Deleted successfully',
+                'status' => 200,
+                'data' => new UserResource($user)
             ];
             return $res;
 
+        } catch (ModelNotFoundException $e) {
+             $res = [
+                'message' => 'User not found',
+                'status' => 404,
+            ];
+            return $res; 
         }
     }
 }

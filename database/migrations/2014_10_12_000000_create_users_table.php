@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Enums\UserTypeEnum;
 return new class extends Migration
 {
     /**
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->rememberToken()->nullable();
             $table->string('username')->unique();
             $table->timestamp('last_login')->nullable();
-            $table->enum('user_type',['Tracking','personal','pitsonal']);
+            $table->enum('user_type',array_values(UserTypeEnum::MAP));
             $table->integer('allowable_users')->nullable();
             $table->timestamp('locked_at')->nullable();
             $table->string('financial_number')->nullable();

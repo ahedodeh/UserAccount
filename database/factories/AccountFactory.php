@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Enums\LanguageEnum;
+use App\Enums\DefaultMApEnum;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
  */
@@ -27,8 +28,8 @@ class AccountFactory extends Factory
             'phone' => $this->faker->optional()->phoneNumber(),
             'mobile_prefix' => $this->faker->randomElement(['+972','+970']),
             'mobile' => $this->faker->randomNumber(9),
-            'language' => $this->faker->randomElement(['arabic', 'english']),
-            'default_map' => $this->faker->randomElement(['pits-map', 'bing-default', 'google-default']),
+            'language' => $this->faker->randomElement(array_values(LanguageEnum::MAP)),
+            'default_map' => $this->faker->randomElement(array_values(DefaultMApEnum::MAP)),
             'time_zone' => $this->faker->timezone(),
             'landing_page' => $this->faker->url(),
             'created_at' => $this->faker->optional()->dateTimeThisYear(),

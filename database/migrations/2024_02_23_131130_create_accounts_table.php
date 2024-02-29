@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Enums\LanguageEnum;
+use App\Enums\DefaultMApEnum;
 return new class extends Migration
 {
     /**
@@ -21,9 +22,8 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('mobile_prefix');
             $table->string('mobile');
-            $table->enum('language',['arabic','english']);
-            $table->enum('default_map',['pits-map','bing-default','google-default']);
-            //file
+            $table->enum('language', array_values(LanguageEnum::MAP));
+            $table->enum('default_map',array_values(DefaultMApEnum::MAP));
             $table->string('time_zone');
             $table->string('landing_page');
             $table->timestamps();

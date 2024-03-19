@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Enums\DefaultMApEnum;
+use App\Enums\LanguageEnum;
 
 class StoreAccountRequest extends FormRequest
 {
@@ -31,8 +33,8 @@ class StoreAccountRequest extends FormRequest
             'phone' => ['nullable', 'string'],
             'mobile_prefix' => ['required', 'string'],
             'mobile' => ['required', 'string'],
-            'language' => ['required', Rule::in(['arabic', 'english'])],
-            'default_map' => ['required', Rule::in(['pits-map', 'bing-default', 'google-default'])],
+            'language' => ['required', Rule::in(array_values(LanguageEnum::MAP))],
+            'default_map' => ['required', Rule::in(array_values(DefaultMApEnum::MAP))],
             'time_zone' => ['required', 'string'],
             'landing_page' => ['required', 'string'],
         ];

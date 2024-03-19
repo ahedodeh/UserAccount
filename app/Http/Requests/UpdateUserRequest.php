@@ -31,7 +31,8 @@ class UpdateUserRequest extends FormRequest
         'password'=>['required'],
         'username'=>['required'],
         'last_login'=>['nullable','date'],
-        'user_type'=>['required', Rule::in(['Tracking','personal','pitsonal'])],
+        'user_type'=>['required', Rule::in(['Tracking','personal','pitsonal'])],//
+        //add validation here 
         'allowable_users'=>['required'],
         'locked_at'=>['nullable','date'],
         'financial_number'=>['required'],

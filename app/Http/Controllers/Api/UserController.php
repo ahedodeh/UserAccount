@@ -36,7 +36,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $this->validateUnique($request);
         $user = User::create($request->all());
         $res = [
             'message' => 'User created successfully',
@@ -47,19 +46,7 @@ class UserController extends Controller
         return $res;
     }
 
-    private function validateUnique(Request $request)
-    {
-        $request->validate([
-            'username' => 'unique:users',
-            'email' => 'unique:users',
-            'imei' => 'unique:users',
-        ], [
-            'username.unique' => 'The username has already been taken.',
-            'email.unique' => 'The email has already been taken.',
-            'imei.unique' => 'The IMEI has already been taken.',
-        ]);
-      
-    }
+  
 
 
     /**
@@ -92,7 +79,6 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($user_id);
-            $this->validateUnique($request);
             $user->update($request->all());
             $res = [
                 'message' => 'Updated user successfully',

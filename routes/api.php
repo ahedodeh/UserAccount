@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AuthController;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api'], function () {
+Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api', 'middleware'=>'api'], function () {
     Route::apiResource('user', UserController::class);
     Route::apiResource('account', AccountController::class);
     Route::post('bulk/accounts', [AccountController::class, 'bulkStore']);
+    Route::post('/register', [AuthController::class,'register']);
+    Route::post('/login', [AuthController::class,'login']);
+
 });

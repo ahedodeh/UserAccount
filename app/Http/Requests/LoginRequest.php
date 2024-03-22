@@ -38,7 +38,6 @@ class LoginRequest extends FormRequest
             'email.required' => 'Email is required.',
             'password.required' => 'Password is required.',
 
-
-        ];
+            ];
     }
 }

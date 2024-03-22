@@ -26,7 +26,8 @@ Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api', 'middle
     Route::apiResource('user', UserController::class);
     Route::apiResource('account', AccountController::class);
     Route::post('bulk/accounts', [AccountController::class, 'bulkStore']);
-    Route::post('/register', [AuthController::class,'register']);
     Route::post('/login', [AuthController::class,'login']);
+    Route::post('/logout', [AuthController::class,'logout']);
+    Route::get('/profile', [AuthController::class,'profile']);
 
 });

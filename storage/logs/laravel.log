@@ -1,0 +1,22 @@
+[2024-03-23 12:58:01] local.ERROR: Uncaught ErrorException: file_get_contents(C:\xampp\htdocs\myGithub\UserAccount\composer.json): Failed to open stream: No such file or directory in C:\xampp\htdocs\myGithub\UserAccount\vendor\laravel\framework\src\Illuminate\Foundation\Application.php:1516
+Stack trace:
+#0 C:\xampp\htdocs\myGithub\UserAccount\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(255): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_get_conten...', 'C:\\xampp\\htdocs...', 1516)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}(2, 'file_get_conten...', 'C:\\xampp\\htdocs...', 1516)
+#2 C:\xampp\htdocs\myGithub\UserAccount\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1516): file_get_contents('C:\\xampp\\htdocs...')
+#3 Command line code(1): Illuminate\Foundation\Application->getNamespace()
+#4 [internal function]: {closure}('C:\\xampp\\htdocs...')
+#5 Command line code(1): array_map(Object(Closure), Array)
+#6 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ErrorException: file_get_contents(C:\\xampp\\htdocs\\myGithub\\UserAccount\\composer.json): Failed to open stream: No such file or directory in C:\\xampp\\htdocs\\myGithub\\UserAccount\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php:1516
+Stack trace:
+#0 C:\\xampp\\htdocs\\myGithub\\UserAccount\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(255): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_get_conten...', 'C:\\\\xampp\\\\htdocs...', 1516)
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'file_get_conten...', 'C:\\\\xampp\\\\htdocs...', 1516)
+#2 C:\\xampp\\htdocs\\myGithub\\UserAccount\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1516): file_get_contents('C:\\\\xampp\\\\htdocs...')
+#3 Command line code(1): Illuminate\\Foundation\\Application->getNamespace()
+#4 [internal function]: {closure}('C:\\\\xampp\\\\htdocs...')
+#5 Command line code(1): array_map(Object(Closure), Array)
+#6 {main}
+  thrown at C:\\xampp\\htdocs\\myGithub\\UserAccount\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php:1516)
+[stacktrace]
+#0 {main}
+"} 

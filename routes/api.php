@@ -22,11 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api', 'middleware'=>'api'], function () {
-    Route::apiResource('user', UserController::class);
+Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api', 'middleware'=>'auth:api'], function () {
+    Route::apiResource('user', UserController::class)->except(['store']);
+    Route::post('user', [UserController::class, 'store'])->withoutMiddleware(['auth:api']);
     Route::apiResource('account', AccountController::class);
     Route::post('bulk/accounts', [AccountController::class, 'bulkStore']);
-    Route::post('/login', [AuthController::class,'login']);
+    Route::post('/login', [AuthController::class,'login'])->withoutMiddleware(['auth:api']);
     Route::post('/logout', [AuthController::class,'logout']);
     Route::get('/profile', [AuthController::class,'profile']);
 

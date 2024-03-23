@@ -34,6 +34,7 @@ class UserResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'jwt_ttl' => $this->jwt_ttl,
             'imei' => $this->imei,
+            'role' => $this->role,
         ];
     }
 }

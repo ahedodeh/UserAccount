@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Enums\UserTypeEnum;
+use App\Enums\UserRoleEnum;
 
 
 /**
@@ -27,6 +28,7 @@ class UserFactory extends Factory
     {
         // I don't know if any attribute depends on another attribute
         $type = $this->faker->randomElement(array_values(UserTypeEnum::MAP));
+        $role= $this->faker->randomElement(array_values(UserRoleEnum::MAP));
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -46,6 +48,8 @@ class UserFactory extends Factory
             'deleted_at' => $this->faker->optional()->dateTimeThisYear(),
             'jwt_ttl' => 480,
             'imei' => $this->faker->unique()->optional()->randomNumber(),
+            'role'=>$role,
+
 
 
 

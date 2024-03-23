@@ -18,14 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::middleware('admin')->group(function () {
+    Route::apiResource('account', AccountController::class);
 });
 
 Route::group(['prefix' => '', 'namespace' => 'App\Http\Controllers\Api', 'middleware'=>'auth:api'], function () {
     Route::apiResource('user', UserController::class)->except(['store']);
     Route::post('user', [UserController::class, 'store'])->withoutMiddleware(['auth:api']);
-    Route::apiResource('account', AccountController::class);
     Route::post('bulk/accounts', [AccountController::class, 'bulkStore']);
     Route::post('/login', [AuthController::class,'login'])->withoutMiddleware(['auth:api']);
     Route::post('/logout', [AuthController::class,'logout']);

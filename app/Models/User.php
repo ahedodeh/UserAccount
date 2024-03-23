@@ -39,7 +39,9 @@ class User extends Authenticatable implements JWTSubject
     'last_login_at',
     'jwt_ttl',
     'imei',
+    'role',
     ];
+
 
 
     /**

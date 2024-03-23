@@ -33,6 +33,7 @@ class UserCollection extends ResourceCollection
                     'background_color' => $user->background_color,
                     'jwt_ttl' => $user->jwt_ttl,
                     'imei' => $user->imei,
+                    'role' =>$user->role,
                 ];
             })
         ];

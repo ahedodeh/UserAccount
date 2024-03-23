@@ -6,6 +6,7 @@ use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Enums\UserTypeEnum;
+use App\Enums\UserRoleEnum;
 
 class StoreUserRequest extends FormRequest
 {
@@ -38,6 +39,10 @@ class StoreUserRequest extends FormRequest
         'last_login_at'=>['nullable','date'],
         'jwt_ttl' => ["nullable", 'integer'],
         'imei' => ['nullable', 'string' , 'unique:users'],
+        'role' => ['sometimes', Rule::in(array_values(UserRoleEnum::MAP))],
+
+        
+
        
         ];
     }

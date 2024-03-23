@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Enums\UserTypeEnum;
+use App\Enums\UserRoleEnum;
 return new class extends Migration
 {
     /**
@@ -30,6 +31,8 @@ return new class extends Migration
             $table->softDeletes()->nullable();
             $table->integer('jwt_ttl')->default(480);
             $table->string('imei')->unique()->nullable();
+            $table->enum('role', array_values(UserRoleEnum::MAP))->default(UserRoleEnum::MAP[0]);
+
         });
     }
 
